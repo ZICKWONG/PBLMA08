@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agenda Kegiatan Organisasi Mahasiswa</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ==================== LAYAR LOGIN ==================== -->
+  <div class="auth-screen" id="authScreen">
+    <header class="auth-topbar">
+      <div class="logo-box">
+        <img src="logo.png" alt="Logo PBL-IF MA08" />
+      </div>
+      <h1 class="app-title">Aplikasi Agenda Kegiatan Organisasi Mahasiswa</h1>
+    </header>
+
+    <main class="auth-main">
+
+      <!-- ----- Login Anggota ----- -->
+      <section class="auth-card" id="cardLoginAnggota">
+        <div class="auth-avatar">
+          <img src="logo.png" alt="Logo PBL-IF MA08" />
+        </div>
+        <h2 class="auth-title">Login Anggota</h2>
+
+        <form class="auth-form" id="formLoginAnggota" novalidate>
+          <label class="auth-label" for="loginAnggotaUser">Username / Email</label>
+          <input
+            type="text"
+            id="loginAnggotaUser"
+            class="input"
+            placeholder="Masukkan username atau email"
+            autocomplete="username"
+          />
+
+          <label class="auth-label" for="loginAnggotaPass">Password</label>
+          <div class="auth-pass-wrap">
+            <input
+              type="password"
+              id="loginAnggotaPass"
+              class="input"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            />
+            <button type="button" class="auth-lihat" data-target="loginAnggotaPass">Lihat</button>
+          </div>
+
+          <div class="auth-row">
+            <label class="auth-check">
+              <input type="checkbox" id="loginAnggotaRemember" />
+              Ingat saya
+            </label>
+            <button type="button" class="auth-link" id="btnLupaPassword">Lupa password?</button>
+          </div>
+
+          <!-- Pesan error merah di atas tombol Masuk -->
+          <p class="auth-error" id="loginAnggotaError" hidden>Username atau password salah.</p>
+
+          <button type="submit" class="auth-submit">Masuk</button>
+        </form>
+
+        <div class="auth-footer-links">
+          <button type="button" class="auth-link" id="btnKeDaftar">Belum punya akun? <strong>Daftar</strong></button>
+          <button type="button" class="auth-link" id="btnKeAdmin">Pengelola? <strong>Masuk sebagai admin</strong></button>
+        </div>
+      </section>
+
+      <!-- ----- Login Admin ----- -->
+      <section class="auth-card" id="cardLoginAdmin" hidden>
+        <div class="auth-avatar">
+          <img src="logo.png" alt="Logo PBL-IF MA08" />
+        </div>
+        <h2 class="auth-title">Login Admin</h2>
+        <p class="auth-subtitle">Masuk untuk mengelola data</p>
+
+        <form class="auth-form" id="formLoginAdmin" novalidate>
+          <label class="auth-label" for="loginAdminUser">Username / Email</label>
+          <input
+            type="text"
+            id="loginAdminUser"
+            class="input"
+            placeholder="Masukkan username atau email"
+            autocomplete="username"
+          />
+
+          <label class="auth-label" for="loginAdminPass">Password</label>
+          <div class="auth-pass-wrap">
+            <input
+              type="password"
+              id="loginAdminPass"
+              class="input"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            />
+            <button type="button" class="auth-lihat" data-target="loginAdminPass">Lihat</button>
+          </div>
+
+          <div class="auth-row">
+            <label class="auth-check">
+              <input type="checkbox" id="loginAdminRemember" />
+              Ingat saya
+            </label>
+            <button type="button" class="auth-link" id="btnLupaPasswordAdmin">Lupa password?</button>
+          </div>
+
+          <!-- Pesan error merah di atas tombol Masuk -->
+          <p class="auth-error" id="loginAdminError" hidden>Username atau password salah.</p>
+
+          <button type="submit" class="auth-submit">Masuk</button>
+        </form>
+
+        <div class="auth-footer-links">
+          <button type="button" class="auth-link" id="btnKeAnggota">Bukan admin? <strong>Masuk sebagai anggota</strong></button>
+        </div>
+      </section>
+
+      <!-- ----- Daftar Anggota ----- -->
+      <section class="auth-card" id="cardDaftar" hidden>
+        <div class="auth-avatar">
+          <img src="logo.png" alt="Logo PBL-IF MA08" />
+        </div>
+        <h2 class="auth-title">Daftar Akun Anggota</h2>
+
+        <form class="auth-form" id="formDaftar" novalidate>
+          <label class="auth-label" for="daftarUsername">Username</label>
+          <input type="text" id="daftarUsername" class="input" placeholder="Masukkan username" autocomplete="username" />
+
+          <label class="auth-label" for="daftarEmail">Email</label>
+          <input type="email" id="daftarEmail" class="input" placeholder="Masukkan email" autocomplete="email" />
+
+          <label class="auth-label" for="daftarPass">Password</label>
+          <div class="auth-pass-wrap">
+            <input type="password" id="daftarPass" class="input" placeholder="Minimal 4 karakter" autocomplete="new-password" />
+            <button type="button" class="auth-lihat" data-target="daftarPass">Lihat</button>
+          </div>
+
+          <p class="auth-error" id="daftarError" hidden>Lengkapi semua data dengan benar.</p>
+
+          <button type="submit" class="auth-submit">Daftar</button>
+        </form>
+
+        <div class="auth-footer-links">
+          <button type="button" class="auth-link" id="btnKeLoginAnggota">Sudah punya akun? <strong>Masuk</strong></button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="auth-bottom">© 2026 Aplikasi Agenda Kegiatan Organisasi Mahasiswa</footer>
+  </div>
+
+  <!-- ==================== APLIKASI (setelah login) ==================== -->
+  <div id="appScreen" hidden>
+
+  <!-- ==================== HEADER / TOPBAR ==================== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="logo-box">
+        <!-- Slot logo: ganti src bila file logo dipindah -->
+        <img src="logo.png" alt="Logo PBL-IF MA08" />
+      </div>
+      <h1 class="app-title">Agenda Kegiatan Organisasi Mahasiswa</h1>
+    </div>
+
+    <div class="topbar-center">
+      <input
+        type="text"
+        id="globalSearch"
+        class="input"
+        placeholder="Cari kegiatan..."
+        autocomplete="off"
+      />
+      <button type="button" class="btn btn-primary" id="btnGlobalSearch">Cari</button>
+    </div>
+
+    <div class="topbar-right">
+      <button type="button" class="btn" id="btnProfil">Profil</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside class="sidebar">
+      <p class="sidebar-title">MENU</p>
+      <nav class="menu">
+        <button type="button" class="menu-item active" data-view="dashboard">Dashboard</button>
+        <button type="button" class="menu-item" data-view="kegiatan">Kegiatan</button>
+        <button type="button" class="menu-item" data-view="anggota">Anggota</button>
+        <button type="button" class="menu-item" data-view="peserta">Peserta</button>
+        <button type="button" class="menu-item" data-view="laporan">Laporan</button>
+      </nav>
+    </aside>
+
+    <!-- ==================== KONTEN UTAMA ==================== -->
+    <main class="content">
+
+      <!-- ---------- VIEW: DASHBOARD ---------- -->
+      <section class="view active" id="view-dashboard">
+        <h2 class="page-heading">Dashboard</h2>
+        <h3 class="sub-heading">Agenda Terdekat</h3>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Jam</th>
+                <th>Nama Kegiatan</th>
+                <th>Lokasi</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="dashboardBody"><!-- di-render oleh app.js --></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- VIEW: DATA KEGIATAN ---------- -->
+      <section class="view" id="view-kegiatan">
+        <h2 class="page-heading">Data Kegiatan</h2>
+
+        <div class="control-row">
+          <div class="control-left">
+            <input
+              type="text"
+              id="kegiatanSearch"
+              class="input"
+              placeholder="Cari kegiatan (nama, lokasi, PIC)"
+              autocomplete="off"
+            />
+            <button type="button" class="btn" id="btnKegiatanSearch">Cari</button>
+          </div>
+          <div class="control-right">
+            <button type="button" class="btn btn-primary" id="btnTambahKegiatan">+ Tambah Kegiatan</button>
+            <button type="button" class="btn" id="btnFilterKegiatan">Filter</button>
+          </div>
+        </div>
+
+        <!-- Panel filter (toggle) -->
+        <div class="filter-panel" id="filterKegiatanPanel" hidden>
+          <label>
+            Kategori
+            <select id="filterKategori" class="input">
+              <option value="">Semua</option>
+              <option>Seminar</option>
+              <option>Rapat</option>
+              <option>Lomba</option>
+              <option>Sosial</option>
+              <option>Latihan</option>
+            </select>
+          </label>
+          <label>
+            Status
+            <select id="filterStatusKegiatan" class="input">
+              <option value="">Semua</option>
+              <option>Direncanakan</option>
+              <option>Berlangsung</option>
+              <option>Selesai</option>
+              <option>Dibatalkan</option>
+            </select>
+          </label>
+          <button type="button" class="btn" id="btnResetFilterKegiatan">Reset</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nama Kegiatan</th>
+                <th>Kategori</th>
+                <th>Tanggal</th>
+                <th>Jam</th>
+                <th>Lokasi</th>
+                <th>PIC</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="kegiatanBody"><!-- di-render oleh app.js --></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="kegiatanPagination"><!-- di-render oleh app.js --></div>
+      </section>
+
+      <!-- ---------- VIEW: FORM KEGIATAN (TAMBAH / UBAH) ---------- -->
+      <section class="view" id="view-kegiatan-form">
+        <h2 class="page-heading">Form Kegiatan (Tambah / Ubah)</h2>
+
+        <form class="form" id="formKegiatan" novalidate>
+          <div class="form-row">
+            <label class="form-label" for="fNama">Nama kegiatan <span class="req">*</span></label>
+            <div class="form-field">
+              <input type="text" id="fNama" class="input" placeholder="Masukkan nama kegiatan" />
+              <p class="field-error" id="errNama" hidden>! Nama kegiatan wajib diisi</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fKategori">Kategori <span class="req">*</span></label>
+            <div class="form-field">
+              <select id="fKategori" class="input">
+                <option value="">Pilih kategori</option>
+                <option>Seminar</option>
+                <option>Rapat</option>
+                <option>Lomba</option>
+                <option>Sosial</option>
+                <option>Latihan</option>
+              </select>
+              <p class="field-error" id="errKategori" hidden>! Kategori wajib dipilih</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fTanggal">Tanggal <span class="req">*</span></label>
+            <div class="form-field form-field--narrow">
+              <input type="date" id="fTanggal" class="input" placeholder="dd/mm/yyyy" />
+              <p class="field-error" id="errTanggal" hidden>! Tanggal wajib diisi</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fJam">Jam <span class="req">*</span></label>
+            <div class="form-field form-field--narrow">
+              <input type="time" id="fJam" class="input" placeholder="hh:mm" />
+              <p class="field-error" id="errJam" hidden>! Jam wajib diisi</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fLokasi">Lokasi <span class="req">*</span></label>
+            <div class="form-field">
+              <input type="text" id="fLokasi" class="input" placeholder="Masukkan lokasi" />
+              <p class="field-error" id="errLokasi" hidden>! Lokasi wajib diisi</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fPic">PIC <span class="req">*</span></label>
+            <div class="form-field">
+              <select id="fPic" class="input">
+                <option value="">Pilih anggota</option>
+                <!-- diisi dari data anggota oleh app.js -->
+              </select>
+              <p class="field-error" id="errPic" hidden>! PIC wajib dipilih</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fStatus">Status <span class="req">*</span></label>
+            <div class="form-field">
+              <select id="fStatus" class="input">
+                <option>Direncanakan</option>
+                <option>Berlangsung</option>
+                <option>Selesai</option>
+                <option>Dibatalkan</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fDeskripsi">Deskripsi</label>
+            <div class="form-field">
+              <textarea id="fDeskripsi" class="input" rows="4" placeholder="Deskripsi singkat kegiatan"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="btnSimpanKegiatan">Simpan</button>
+            <button type="button" class="btn" id="btnBatalKegiatan">Batal</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ---------- VIEW: DATA ANGGOTA ---------- -->
+      <section class="view" id="view-anggota">
+        <h2 class="page-heading">Data Anggota</h2>
+
+        <div class="control-row">
+          <div class="control-left">
+            <input
+              type="text"
+              id="anggotaSearch"
+              class="input"
+              placeholder="Cari anggota (NIM, nama)"
+              autocomplete="off"
+            />
+            <button type="button" class="btn" id="btnAnggotaSearch">Cari</button>
+          </div>
+          <div class="control-right">
+            <button type="button" class="btn btn-primary" id="btnTambahAnggota">+ Tambah Anggota</button>
+            <button type="button" class="btn" id="btnFilterAnggota">Filter</button>
+          </div>
+        </div>
+
+        <div class="filter-panel" id="filterAnggotaPanel" hidden>
+          <label>
+            Jabatan
+            <select id="filterJabatan" class="input">
+              <option value="">Semua</option>
+              <option>Ketua</option>
+              <option>Sekretaris</option>
+              <option>Bendahara</option>
+              <option>Anggota</option>
+            </select>
+          </label>
+          <button type="button" class="btn" id="btnResetFilterAnggota">Reset</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-narrow">No</th>
+                <th>NIM</th>
+                <th>Nama</th>
+                <th>Jabatan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="anggotaBody"><!-- di-render oleh app.js --></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- VIEW: PESERTA KEGIATAN ---------- -->
+      <section class="view" id="view-peserta">
+        <h2 class="page-heading">Peserta Kegiatan</h2>
+
+        <div class="form-row form-row--inline">
+          <label class="form-label" for="pesertaKegiatan">Kegiatan:</label>
+          <div class="form-field">
+            <select id="pesertaKegiatan" class="input input--wide"><!-- di-render oleh app.js --></select>
+          </div>
+        </div>
+
+        <div class="form-row form-row--inline" id="rowTambahPeserta">
+          <label class="form-label" for="pesertaAnggota">Tambah peserta:</label>
+          <div class="form-field form-field--inline">
+            <select id="pesertaAnggota" class="input input--wide">
+              <option value="">Pilih anggota</option>
+            </select>
+            <button type="button" class="btn btn-primary" id="btnTambahPeserta">+ Tambah Peserta</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-narrow">No</th>
+                <th>NIM</th>
+                <th>Nama</th>
+                <th>Jabatan</th>
+                <th>Kehadiran</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="pesertaBody"><!-- di-render oleh app.js --></tbody>
+          </table>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary" id="btnSimpanKehadiran">Simpan Kehadiran</button>
+        </div>
+      </section>
+
+      <!-- ---------- VIEW: LAPORAN KEGIATAN ---------- -->
+      <section class="view" id="view-laporan">
+        <h2 class="page-heading">Laporan Kegiatan</h2>
+
+        <div class="filter-bar">
+          <span class="filter-label">Periode:</span>
+          <input type="date" id="laporanMulai" class="input input--date" />
+          <span class="filter-label">s.d.</span>
+          <input type="date" id="laporanAkhir" class="input input--date" />
+
+          <span class="filter-label">Kategori:</span>
+          <select id="laporanKategori" class="input">
+            <option value="">Semua</option>
+            <option>Seminar</option>
+            <option>Rapat</option>
+            <option>Lomba</option>
+            <option>Sosial</option>
+            <option>Latihan</option>
+          </select>
+
+          <span class="filter-label">Status:</span>
+          <select id="laporanStatus" class="input">
+            <option value="">Semua</option>
+            <option>Direncanakan</option>
+            <option>Berlangsung</option>
+            <option>Selesai</option>
+            <option>Dibatalkan</option>
+          </select>
+
+          <button type="button" class="btn btn-primary" id="btnTampilkanLaporan">Tampilkan</button>
+        </div>
+
+        <h3 class="sub-heading">Tabel Rekap</h3>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-narrow">No</th>
+                <th>Nama Kegiatan</th>
+                <th>Kategori</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+                <th>Jumlah Peserta</th>
+              </tr>
+            </thead>
+            <tbody id="laporanBody"><!-- di-render oleh app.js --></tbody>
+            <tfoot id="laporanFoot"><!-- di-render oleh app.js --></tfoot>
+          </table>
+        </div>
+
+        <p class="footnote">Angka rekap dihitung dari data aplikasi, bukan diketik manual.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==================== MODAL: FORM ANGGOTA ==================== -->
+  <div class="modal-overlay" id="modalAnggota" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalAnggotaTitle">
+      <h3 class="modal-title" id="modalAnggotaTitle">Form Anggota (Tambah / Ubah)</h3>
+
+      <form class="form" id="formAnggota" novalidate>
+        <div class="form-row">
+          <label class="form-label" for="aNim">NIM <span class="req">*</span></label>
+          <div class="form-field">
+            <input type="text" id="aNim" class="input" placeholder="Masukkan NIM" />
+            <p class="field-error" id="errNim" hidden>! NIM wajib diisi</p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="aNama">Nama <span class="req">*</span></label>
+          <div class="form-field">
+            <input type="text" id="aNama" class="input" placeholder="Masukkan nama" />
+            <p class="field-error" id="errANama" hidden>! Nama wajib diisi</p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="aJabatan">Jabatan <span class="req">*</span></label>
+          <div class="form-field">
+            <input type="text" id="aJabatan" class="input" placeholder="Masukkan jabatan" />
+            <p class="field-error" id="errAJabatan" hidden>! Jabatan wajib diisi</p>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Simpan</button>
+          <button type="button" class="btn" id="btnBatalAnggota">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: PROFIL ==================== -->
+  <div class="modal-overlay" id="modalProfil" hidden>
+    <div class="modal modal--sm" role="dialog" aria-modal="true" aria-labelledby="modalProfilTitle">
+      <h3 class="modal-title" id="modalProfilTitle">Profil</h3>
+      <div class="profil-body">
+        <div class="profil-avatar">
+          <img src="logo.png" alt="Logo PBL-IF MA08" />
+        </div>
+        <p><strong id="profilNama">PBL-IF MA08</strong></p>
+        <p class="text-secondary" id="profilRole">Admin Organisasi Mahasiswa</p>
+        <p class="text-secondary" id="profilEmail">admin@pbl-if.ac.id</p>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-danger" id="btnLogout">Keluar</button>
+        <button type="button" class="btn" id="btnTutupProfil">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /#appScreen -->
+
+  <!-- ==================== TOAST / NOTIFIKASI ==================== -->
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
